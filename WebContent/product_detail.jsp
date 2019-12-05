@@ -20,6 +20,26 @@
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/style-desktop.css" />
 <title>Product Detail</title>
+
+<style>
+.imgposition {
+float:left;
+margin-right:20px;
+margin-top:20px;
+clear:both;
+width:500px;
+margin-left:150px;
+margin-right:auto;
+}
+table {
+margin-left:auto;
+margin-right:auto;
+}
+</style>
+
+
+
+
 </head>
 <body>
 <script>
@@ -41,7 +61,7 @@
 				<!-- Logo -->
 				<div id="logo">
 					<h1>
-						<a href="#">Young Art</a>
+						<a href="index.jsp">Young Art</a>
 					</h1>
 				</div>
 
@@ -74,11 +94,15 @@
 		<!-- /Banner -->
 		<!-- Main -->
 		<div id="main">
+	
+		 <div class="imgposition">
+            <img src="upload/${product.getImg()}" style="width: inherit; height: inherit" />
+         </div>
 		<table>
 			<tr>
-				<td><br>
+				<td>
 				<br>
-					<table width="100%" cellpadding="0" cellspacing="0" border="0">
+					<table class="info" width="100%" cellpadding="0" cellspacing="0" border="0">
 						<tr style="text-align: center;">
 							<td width="5"></td>
 							<td><H2>작품 보기</H2></td>
@@ -177,7 +201,7 @@
 		</td>
 		</tr>
 		</table>
-		
+	
 		</div>
 
 </body>
