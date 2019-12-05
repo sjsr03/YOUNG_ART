@@ -76,16 +76,19 @@ public class ProductDAO {
 	}
 	
 	//글 목록 보기
-	public List getProductList(int page, int limit) {
+	public List getProductList(int page, int limit, String category) {
+		
 		connect();
-		String sql ="select * from product order by i desc limit ?,10";
+		String sql ="select * from product where category = ? order by i desc limit ?,10";
 		List productlist = new ArrayList();
 		
 		int startrow = (page-1)*10 +1; //시작번호  1페이지 1~10
 		int endrow = startrow +limit -1;
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, startrow-1);
+			pstmt.setString(1, category);
+			pstmt.setInt(2, startrow-1);
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

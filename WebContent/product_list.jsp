@@ -140,7 +140,7 @@ dd {
 				<nav id="nav">
 					<ul>
 						<li><a href="index.jsp">HOME</a></li>
-						<li class="active"><a href="ProductList.do">ART</a></li>
+						<li class="active"><a href="ProductList.do?category=painting">ART</a></li>
 						<li><a href="BoardList.do">REVIEW</a></li>
 						<li><a href="cart.jsp">CART</a></li>
 						<c:if test="${sessionID == null}">
@@ -181,9 +181,9 @@ dd {
 							<h2>ART</h2>
 						</header>
 						<ul class="default">
-							<li><a href="ProductList.do">PAINTING</a></li>
-							<li><a href="ProductList.do">SCULPTURE</a></li>
-							<li><a href="ProductList.do">PHOTO</a></li>
+							<li><a href="ProductList.do?category=painting">PAINTING</a></li>
+							<li><a href="ProductList.do?category=sculpture">SCULPTURE</a></li>
+							<li><a href="ProductList.do?category=photo">PHOTO</a></li>
 						</ul>
 				</section>
     </div>
