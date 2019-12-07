@@ -121,7 +121,7 @@ table thead tr th {
 							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="member_edit.jsp"> ${sessionID} 님 </a></li>
+							<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a></li>
 							<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>
@@ -186,7 +186,7 @@ table thead tr th {
 									<tr>
 										<td>&nbsp;</td>
 										<td align="center">작가명</td>
-										<td><input type="text" name="artist" size="55" maxlength="50"></td>
+										<td><input type="text" name="artist" size="55" maxlength="50" value="${sessionDisplayName}" readonly></td>
 										<td>&nbsp;</td>
 									</tr>
 									<tr height="1" bgcolor="#dddddd">

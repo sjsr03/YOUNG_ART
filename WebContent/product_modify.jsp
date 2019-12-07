@@ -60,7 +60,7 @@
 							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="member_edit.jsp"> ${sessionID} 님 </a></li>
+							<li><a href="member_edit.jsp">${sessionDisplayName} 님 </a></li>
 							<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>

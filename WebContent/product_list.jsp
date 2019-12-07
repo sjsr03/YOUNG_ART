@@ -147,7 +147,7 @@ dd {
 							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="member_edit.jsp"> ${sessionID} 님</a></li>
+							<li><a href="member_edit.jsp"> ${sessionDisplayName} 님</a></li>
 							<li class="active"><a href="logoutAction.do">LOGOUT</a></li>
 						</c:if>
 					</ul>
@@ -173,7 +173,6 @@ dd {
 	
 	
      <div class="container">
-	 <div class="3u">
 
 
                    <section class="sidebar">  
@@ -181,12 +180,12 @@ dd {
 							<h2>ART</h2>
 						</header>
 						<ul class="default">
-							<li><a href="ProductList.do?category=painting">PAINTING</a></li>
-							<li><a href="ProductList.do?category=sculpture">SCULPTURE</a></li>
-							<li><a href="ProductList.do?category=photo">PHOTO</a></li>
+							<a style="font-size: 20px" href="ProductList.do?category=painting">PAINTING</a> |
+							<a style="font-size: 20px" href="ProductList.do?category=sculpture">SCULPTURE</a> |
+							<a style="font-size: 20px"href="ProductList.do?category=photo">PHOTO</a>
 						</ul>
 				</section>
-    </div>
+
     </div>
     	
 

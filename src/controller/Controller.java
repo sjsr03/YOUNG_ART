@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import action.BoardListAction;
+import action.CartAction;
 import action.LogoutAction;
 import action.MemberAuthenticationAction;
 import action.MemberDeleteAction;
@@ -118,7 +119,7 @@ public class Controller extends HttpServlet {
 		}else if(command.equals("/ProductUpload.do")){
 		    action = new ProductUploadAction();
 		    action.execute(request, response); //夸没贸府
-		    RequestDispatcher rd = request.getRequestDispatcher("ProductList.do");
+		    RequestDispatcher rd = request.getRequestDispatcher("ProductList.do?category=painting");
 		    rd.forward(request, response);   
 	    }else if(command.contentEquals("/ProductView.do")) {
 		    action = new ProductViewAction();
@@ -139,6 +140,12 @@ public class Controller extends HttpServlet {
 			action = new ProductModifyViewAction();
 			action.execute(request, response); //夸没贸府	
 			RequestDispatcher rd = request.getRequestDispatcher("product_modify.jsp");
+			rd.forward(request, response);
+	    }
+	    else if(command.equals("/cart.do")) {
+			action = new CartAction();
+			action.execute(request, response); //夸没贸府	
+			RequestDispatcher rd = request.getRequestDispatcher("ProductView.do");
 			rd.forward(request, response);
 	    }
 	}

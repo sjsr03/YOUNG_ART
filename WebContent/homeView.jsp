@@ -44,7 +44,7 @@
 						<li class="active"><a href="index.jsp">HOME</a></li>
 						<li><a href="ProductList.do?category=painting">ART</a></li>
 						<li><a href="BoardList.do">REVIEW</a></li>
-						<li><a href="cart.jsp">CART</a></li>
+						<li><a href="cartList.do">CART</a></li>
 						<c:if test="${sessionID == null}">
 						<li class="active"><a href="sign_in.jsp">LOGIN</a>
 						</li>
