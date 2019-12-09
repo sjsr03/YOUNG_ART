@@ -34,7 +34,7 @@ public class ProductUploadAction implements Action{
 		String price = multi.getParameter("price");
  		String img = multi.getFilesystemName("img");
 		String content = multi.getParameter("content");
-		Product product = new Product(0,name,artist,category,price,img,0,content);//i, name, artist, category,price,img,likey,content
+		Product product = new Product(0,name,artist,category,price,img,0,content,"F");//i, name, artist, category,price,img,likey,content
 		System.out.println(product);
 		
 		ProductDAO dao = ProductDAO.getInstance();

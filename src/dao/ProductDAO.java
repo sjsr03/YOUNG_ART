@@ -54,7 +54,7 @@ public class ProductDAO {
 		}
 	}
 	
-	public int getListCount() { //글의 개수 구하기
+	public int getListCount() { //상품수
 		int x =0;
 		connect();
 		try {
@@ -72,14 +72,14 @@ public class ProductDAO {
 			
 			disconnect();
 		}
-		return x; //구한 글 수 리턴
+		return x; //구한 상품 수 리턴
 	}
 	
-	//글 목록 보기
-	public List getProductList(int page, int limit, String category) {
+	//상품 목록
+	public List getProductList(int page, int limit, String category, String sell) {
 		
 		connect();
-		String sql ="select * from product where category = ? order by i desc limit ?,10";
+		String sql ="select * from product where category = ? and sell = ? order by i desc limit ?,10";
 		List productlist = new ArrayList();
 		
 		int startrow = (page-1)*10 +1; //시작번호  1페이지 1~10
@@ -87,7 +87,9 @@ public class ProductDAO {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, category);
-			pstmt.setInt(2, startrow-1);
+			pstmt.setString(2, sell);
+			pstmt.setInt(3, startrow-1);
+			
 			
 			rs = pstmt.executeQuery();
 			
@@ -101,6 +103,7 @@ public class ProductDAO {
 				product.setImg(rs.getString("img")); //이미지
 				product.setLikey(rs.getInt("likey")); //추천수
 				product.setContent(rs.getString("content")); //작품내용
+				product.setSell(rs.getString("sell"));
 				productlist.add(product);
 			}
 			rs.close();
@@ -115,7 +118,7 @@ public class ProductDAO {
 		return null;
 	}
 	
-	//글내용보기
+	//상품 디테일보기
 	public Product getDetail(int num) throws Exception{
 		Product product = null;
 		connect();
@@ -134,6 +137,7 @@ public class ProductDAO {
 				product.setImg(rs.getString("img")); //이미지
 				product.setLikey(rs.getInt("likey")); //추천수
 				product.setContent(rs.getString("content")); //작품내용
+				product.setSell(rs.getString("sell"));
 			}
 				rs.close();
 			return product;
@@ -145,7 +149,7 @@ public class ProductDAO {
 		}
 		return null;
 	}
-	//글 등록
+	//상품 등록
 	public boolean ProductInsert(Product product) {
 		int num =0;
 		String sql="";
@@ -161,7 +165,7 @@ public class ProductDAO {
 				num=1;
 			}
 			
-			sql="insert into product (i, name, artist, category, price, img, likey, content) values(?,?,?,?,?,?,?,?)";
+			sql="insert into product (i, name, artist, category, price, img, likey, content, sell) values(?,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, product.getName());
@@ -171,6 +175,7 @@ public class ProductDAO {
 			pstmt.setString(6, product.getImg());
 			pstmt.setInt(7, product.getLikey());
 			pstmt.setString(8, product.getContent());
+			pstmt.setString(9, product.getSell());
 			result = pstmt.executeUpdate();
 			if(result!=0) {
 				return true;
@@ -185,7 +190,7 @@ public class ProductDAO {
 		}
 		return false;
 	}
-	//글 수정
+	//상품 수정
 	public boolean ProductModify(Product product) throws Exception{
 		String sql="update product set name=?,content=? where i=?";
 		connect();
@@ -204,7 +209,7 @@ public class ProductDAO {
 		}
 		return false;
 	}
-	//글 삭제
+	//상품 삭제
 	public boolean ProductDelete(int num) throws Exception {
 		String sql ="delete from product where i=?";
 		connect();
@@ -239,6 +244,147 @@ public class ProductDAO {
 				System.out.println("setReadCountUpdate에러:"+ex);
 			}
 		}
+		
+		
+		//좋아요 업데이트
+		public void update_Like(int bno){
+			connect();
+		    String sql = "update product set likey=likey+1 where i=?";
+		   
+		    try {
+            	pstmt= conn.prepareStatement(sql);
+            	pstmt.setInt(1,bno);
+            	pstmt.executeUpdate();
+            	
+		}catch(SQLException e){
+		 System.out.println("LikeUpdate에러: "+e);
+		}finally {
+			disconnect();
+		}
+	}
+		
+		
+		//좋아요 개수 찾기
+		public int select_Like(int bno){
+		  int likey=0;
+		  connect();
+		  String sql = "select likey from product where i=?";
+		
+		try{
+		 pstmt = conn.prepareStatement(sql); 
+		 pstmt.setInt(1,bno);
+		 rs= pstmt.executeQuery();
+		 System.out.println("글번호: " +bno);
+		if(rs.next()){
+		
+		likey = rs.getInt("likey");
+		
+		} rs.close();
+		
+		}catch(SQLException e){
+		 System.out.println("select_like에러: " +e);
+		}finally {
+		disconnect();
+		}
+		return likey;
+		}	
+		
+		//sell F->T
+		public void updateSellToT(int productCD) {
+			connect();
+			String sql = "update product set sell = ? where i=? ";
+			try {
+				pstmt= conn.prepareStatement(sql);
+				pstmt.setString(1, "T");
+            	pstmt.setInt(2,productCD);
+            	pstmt.executeUpdate();
+            	
+			}catch(SQLException e) {
+				 System.out.println("select_like에러: " +e);
+				
+			}finally {
+				disconnect();
+			}
+		}
+		
+		//메인 노출 최근등록 작품 4개
+	public ArrayList<Product> getProductListForMain() {
+			
+			connect();
+			String sql ="select * from product order by i desc limit 4";
+			ArrayList<Product> productlist = new ArrayList();
+			
+			try {
+				pstmt = conn.prepareStatement(sql);				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					Product product= new Product();
+					product.setI(rs.getInt("i")); //글번호
+					product.setName(rs.getString("name")); //작품명
+					product.setArtist(rs.getString("artist")); //작가명
+					product.setCategory(rs.getString("category")); //카테고리
+					product.setPrice(rs.getString("price")); //가격
+					product.setImg(rs.getString("img")); //이미지
+					product.setLikey(rs.getInt("likey")); //추천수
+					product.setContent(rs.getString("content")); //작품내용
+					product.setSell(rs.getString("sell"));
+					productlist.add(product);
+				}
+				rs.close();
+				return productlist;	
+				
+			}catch(Exception ex) {
+				System.out.println("getProductList에러:" +ex);
+				
+			}finally {
+				disconnect();
+			}
+			return null;
+		}
+		
+		
+		
+		//메인 추천수별 3개작
+		public ArrayList<Product> getProductListByLikey() {
+			
+			connect();
+			String sql ="select * from product order by likey desc limit 3";
+			ArrayList<Product> productlist = new ArrayList();
+			
+
+			try {
+				pstmt = conn.prepareStatement(sql);
+
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					Product product= new Product();
+					product.setI(rs.getInt("i")); //글번호
+					product.setName(rs.getString("name")); //작품명
+					product.setArtist(rs.getString("artist")); //작가명
+					product.setCategory(rs.getString("category")); //카테고리
+					product.setPrice(rs.getString("price")); //가격
+					product.setImg(rs.getString("img")); //이미지
+					product.setLikey(rs.getInt("likey")); //추천수
+					product.setContent(rs.getString("content")); //작품내용
+					product.setSell(rs.getString("sell"));
+					productlist.add(product);
+				}
+				rs.close();
+				return productlist;	
+				
+			}catch(Exception ex) {
+				System.out.println("getProductList에러:" +ex);
+				
+			}finally {
+				disconnect();
+			}
+			return null;
+		}
+		
+		
 	
 }
 

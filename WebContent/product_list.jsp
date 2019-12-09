@@ -64,6 +64,13 @@
 	
 }
 
+.item-list{
+
+	height: 770px;
+
+}
+
+
 .item-list .item {
 	float: left;
 	width: 249px;
@@ -155,14 +162,19 @@ dd {
 	</div>
 	
 </div>
-	
+
+</div>	
 		
 
 		
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner44.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
@@ -175,16 +187,16 @@ dd {
      <div class="container">
 
 
-                   <section class="sidebar">  
-						<header>
-							<h2>ART</h2>
-						</header>
-						<ul class="default">
-							<a style="font-size: 20px" href="ProductList.do?category=painting">PAINTING</a> |
-							<a style="font-size: 20px" href="ProductList.do?category=sculpture">SCULPTURE</a> |
-							<a style="font-size: 20px"href="ProductList.do?category=photo">PHOTO</a>
-						</ul>
-				</section>
+                  <section class="sidebar">  
+					<header>
+						<h2>ART</h2>
+					</header>
+					<ul class="default">
+						<a style="font-size: 20px" href="ProductList.do?category=painting">PAINTING</a> |
+						<a style="font-size: 20px" href="ProductList.do?category=sculpture">SCULPTURE</a> |
+						<a style="font-size: 20px"href="ProductList.do?category=photo">PHOTO</a>
+					</ul>
+			</section>
 
     </div>
     	
@@ -194,19 +206,17 @@ dd {
 	
 
 							<c:if test="${productlist.size() == 0}">
+							<table>
 								<tr align="center" bgcolor="#FFFFFF" height="30">
 									<td colspan="6">등록된 글이 없습니다.</td>
 								</tr>
+							</table>
 							</c:if>
 							
 							   
-							<div class="product-upoload" style="text-align:center;">
-								<input type="button" value="작품 업로드"
-									onClick="window.location = 'product_upload.jsp'"
-									style="width: 100px; height: 30px; color: white; background-color: #A4A4A4;">
-							</div>
+			
                           
-                            <div class="item-list" style="margin:0 auto;">
+          <div class="item-list" style="margin:0 auto;">
                             
 			<c:forEach items="${productlist}" var="product">
 			<dl class="item">
@@ -249,48 +259,11 @@ dd {
 	</c:forEach>
 	</div>
 
-				<table>
-						
-					<tr>
-								<td>			
-									<%
-										int nowpage = ((Integer)request.getAttribute("page")).intValue();
-										int startpage = ((Integer)request.getAttribute("startpage")).intValue();
-										int endpage =  ((Integer)request.getAttribute("endpage")).intValue();
-										int maxpage= ((Integer)request.getAttribute("maxpage")).intValue();
-									%>		
-									<%
-										if(nowpage<=1){%>[이전] &nbsp;<%}else{%>
-										<a href="./ProductList.do?page=<%=nowpage-1%>">[이전]</a>&nbsp;<%
-										}
-									%>			
-					
-									<% 
-										for(int a=startpage;a<=endpage;a++){
-											if(a==nowpage){%>[<%=a%>]<%
-											}else{%>
-											<a href="./ProductList.do?page=<%=a%>">[<%=a%>]</a>
-												<%}	
-										}
-										
-										if(nowpage>=maxpage){%>
-										[다음]&nbsp;<%}else{%>
-										<a href="./ProductList.do?page=<%=nowpage+1%>">[다음] &nbsp;</a>
-										<%} %>					
-											
-								</td>	
-								
-					</tr>
-							
-							
-			
-</table>
-
 
 </div>
 
 	<!-- /Main -->
-</div>
+
 </body>
 </html>
 			

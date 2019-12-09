@@ -293,7 +293,7 @@
 			display: inline-block;
 			margin-top: 0.5em;
 			padding: 1em 1.5em;
-			background: #c61732;
+			background: black;
 			border-radius: 6px;
 			text-decoration: none;
 			text-transform: uppercase;
@@ -309,7 +309,7 @@
 
 			.button:hover
 			{
-				background: #ad142c;
+				background: black;
 				color: #FFF !important;
 			}
 			
@@ -755,7 +755,7 @@
 	#header-wrapper
 	{
 		padding: 0em;
-		background: #333 url(../images/banner.jpg) no-repeat center;
+		background: #333 url(../images/ban.jpg) no-repeat center;
 		background-size: cover;
 	}
 
@@ -832,7 +832,7 @@
 
 			#nav li.active a
 			{
-				background: #c61732;
+				background: black;
 				border-radius: 5px;
 				color: #FFF;
 			}
@@ -849,7 +849,7 @@
 	#banner
 	{
 		position: relative;
-		background: #333 url(../images/banner.jpg) no-repeat center;
+		background: #333 url(../images/banner39.jpg) no-repeat center;
 		text-align: center;
 		color: #fff;
 	}

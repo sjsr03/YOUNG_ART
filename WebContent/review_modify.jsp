@@ -19,6 +19,13 @@
 	<link rel="stylesheet" href="css/skel-noscript.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/style-desktop.css" />
+	
+	
+	<style>
+	
+	table {
+	margin: 0 auto;}
+	</style>
 <title>Review Modify</title>
 <script type="text/javascript">
 			function writeCheck() {
@@ -49,18 +56,18 @@
 
 				<!-- Nav -->
 				<nav id="nav">
-
 					<ul>
-						<li><a href="index.jsp">HOME</a></li>
-						<li><a href="product_list.jsp">ART</a></li>
+						<li class="active"><a href="index.jsp">HOME</a></li>
+						<li><a href="ProductList.do?category=painting">ART</a></li>
 						<li><a href="BoardList.do">REVIEW</a></li>
 						<li><a href="cart.jsp">CART</a></li>
 						<c:if test="${sessionID == null}">
-							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
+						<li class="active"><a href="sign_in.jsp">LOGIN</a>
+						</li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="member_edit.jsp"> ${sessionID} 님 </a></li>
-							<li class="active"><a href="logoutAction.do">LOGOUT</a>
+						<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a> </li>
+						<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>
 				</nav>
@@ -70,7 +77,11 @@
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner41.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
@@ -115,7 +126,7 @@
 							    <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
 							    <tr>
 							      	<td>&nbsp;</td>
-							      	<td align="center">글 내용</td>
+							      	<td align="center" style="vertical-align: middle">글 내용</td>
 							      	<td><textarea name=content cols="50" rows="20">"${review.getContent()}"</textarea></td>
 							      	<td>&nbsp;</td>
 							    </tr>
@@ -125,9 +136,9 @@
 							      	<td colspan="2">
 							      		<br>
 							      		<input type=submit value="수정" OnClick="javascript:modifyCheck();" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 							      		<input type=button value="취소" OnClick="javascript:history.back(-1)" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 							      	</td>
 							      	<td>&nbsp;</td>
 							    </tr>

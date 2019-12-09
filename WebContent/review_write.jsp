@@ -53,6 +53,19 @@
 				window.scrollTo(0, 250);
 			}
 		</script>
+<style>
+table{
+	width: 500px;
+	height: 700px;
+	margin: 0 auto;
+}
+
+td{
+	margin: 10px;
+}
+
+
+</style>
 
 <title>review write</title>
 </head>
@@ -80,7 +93,7 @@
 							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="member_edit.jsp"> ${sessionID} 님 </a></li>
+							<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a></li>
 							<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>
@@ -91,33 +104,38 @@
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner41.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
 		
 		<!-- main -->
 		<div id="main">
-					<div>
+		<div>
 			<form name=writeform method=post action="review_insert.do">
-				<table>
-					<tr>
-						<td>
-					   		<br><br>
-					    	<table width="100%" cellpadding="0" cellspacing="0" border="0">
-						    	<tr style="text-align: center;">
-							      	<td width="5"></td>
-							      	<td><H2>리뷰 쓰기</H2></td>
-							     	<td width="5"></td>
-						    	</tr>
-							</table>
-					
+			<input type="hidden" name="img" value="${product.getImg()}">
+					  
+					   		<h2 style="width:500px; margin:0 auto; text-align:center; font-size:20px; margin-bottom:5px">리뷰 쓰기</h2>			
 							<table>
+
+	
 								<tr height="1" bgcolor="#002266"><td colspan="4"></td></tr>
+								<td>&nbsp;</td>
 							    <tr>
 							      	<td>&nbsp;</td>
 							      	<td align="center">작품명</td>
-							      	<td><input name="art" size="55" maxlength="50"></td>
+							      	<td><input name="art" size="55" maxlength="50" value="${product.getName()}" readonly></td>
+							      	<td>&nbsp;</td>
+							    </tr>
+							    <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
+							    <tr>
+							      	<td>&nbsp;</td>
+							      	<td align="center">작가명</td>
+							      	<td><input name="artist" size="55" maxlength="50" value="${product.getArtist()}" readonly></td>
 							      	<td>&nbsp;</td>
 							    </tr>
 							    <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
@@ -131,32 +149,34 @@
 							    <tr>
 							      	<td>&nbsp;</td>
 							      	<td align="center">작성자</td>
-							      	<td><input name="id" size="55" maxlength="50" readonly value="${sessionID}"></td>
+							      	<td><input name="id" size="55" maxlength="50" readonly value="${sessionDisplayName}"></td>
 							      	<td>&nbsp;</td>
 							    </tr>
 							    <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
 							    <tr>
 							      	<td>&nbsp;</td>
-							      	<td align="center">글 내용</td>
-							      	<td><textarea name="memo" cols="50" rows="20"></textarea></td>
+							      	<td style="vertical-align:middle" align="center">글 내용</td>
+							      	<td><textarea style="width:400px" name="memo" cols="50" rows="20"></textarea></td>
 							      	<td>&nbsp;</td>
 							    </tr>
-							    <tr height="1" bgcolor="#002266"><td colspan="4"></td></tr>
+					
 							    <tr align="center">
 							      	<td>&nbsp;</td>
 							      	<td colspan="2">
 							      		<br>
 							      		<input type=submit value="등록" OnClick="javascript:writeCheck();" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color:#010000;
+		border:none; margin-left:3px">
 							      		<input type=button value="취소" OnClick="javascript:history.back(-1)" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color: #010000;
+		border:none; margin-left:3px">
+							      		
 							      	</td>
 							      	<td>&nbsp;</td>
 							    </tr>
 						    </table>
 				    	</td>
-			    	</tr>		
-		    	</table>
+			
 	    	</form>
 	    </div>
 		

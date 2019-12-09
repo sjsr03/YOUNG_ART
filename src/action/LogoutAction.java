@@ -8,6 +8,9 @@ public class LogoutAction implements Action {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
 		session.invalidate();
+		
+
+		
 	}
 	
 }

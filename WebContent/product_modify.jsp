@@ -21,19 +21,26 @@
 	<link rel="stylesheet" href="css/style-desktop.css" />
 <title>Product Modify</title>
 <script type="text/javascript">
-			function writeCheck() {
-			   var form = document.modifyform; 
-			   } if( !form.title.value ) {
-				   alert( "글 이름을 적어주세요" );
-				   form.content.focus();
-				   return;
-			   } if( !form.content.value ) {
-				   alert( "글 내용을 적어주세요" );
-				   form.memo.focus();
-				   return;
-			   } form.submit();
-			}
+		function writeCheck() {
+		   var form = document.modifyform; 
+		   if( !form.title.value ) {
+			   alert( "글 이름을 적어주세요" );
+			   form.content.focus();
+			   return;
+		   } if( !form.content.value ) {
+			   alert( "글 내용을 적어주세요" );
+			   form.memo.focus();
+			   return;
+		   } form.submit();
+		   }
+		
 </script>
+<style>
+
+table{
+	margin: 0 auto;
+}
+</style>
 </head>
 
 <body>
@@ -72,25 +79,30 @@
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+			<div id="banner" style="position: relative;
+		background: #333 url(./images/banner44.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
 		
 		<!-- Main -->
 		<div id="main">
-		<form name=modifyform method=post action="product_modify.do?num=${product.getI()}">
+		<form name=modifyform method=post action="ProductModify.do?num=${product.getI()}">
 				<table>
 					<tr>
 						<td>
-					   		<br><br>
 					    	<table width="100%" cellpadding="0" cellspacing="0" border="0">
-						    	<tr style="text-align: center;">
+						    	<tr style="text-align: center; margin-bottom: 5px">
 							      	<td width="5"></td>
-							      	<td><H2>상품 수정</H2></td>
+							      	<td  ><H2 style="font-size: 25px">상품 수정</H2></td>
 							     	<td width="5"></td>
+							     
 						    	</tr>
-							</table>
+					
+							</table >
 					
 							<table>
 								<tr height="1" bgcolor="#002266"><td colspan="4"></td></tr>
@@ -104,13 +116,13 @@
 							    <tr>
 							      	<td>&nbsp;</td>
 							      	<td align="center">작성자</td>
-							      	<td><input type=text name=id size=50 maxlength=50 readonly value="${product.getArtist()}"></td>
+							      	<td><input type=text name=artist size=50 maxlength=50 readonly value="${product.getArtist()}"></td>
 							      	<td>&nbsp;</td>
 							    </tr>
 							    <tr height="1" bgcolor="#dddddd"><td colspan="4"></td></tr>
 							    <tr>
 							      	<td>&nbsp;</td>
-							      	<td align="center">글 내용</td>
+							      	<td  style="vertical-align: middle""align="center">글 내용</td>
 							      	<td><textarea name=content cols="50" rows="20">"${product.getContent()}"</textarea></td>
 							      	<td>&nbsp;</td>
 							    </tr>
@@ -120,9 +132,9 @@
 							      	<td colspan="2">
 							      		<br>
 							      		<input type=submit value="수정" OnClick="javascript:modifyCheck();" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 							      		<input type=button value="취소" OnClick="javascript:history.back(-1)" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 							      	</td>
 							      	<td>&nbsp;</td>
 							    </tr>

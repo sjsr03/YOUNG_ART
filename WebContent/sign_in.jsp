@@ -110,7 +110,11 @@
 	
 		</div>
 		<!-- Header -->
-		<div id="banner"></div>
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner52.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;"></div>
 
 		<div id="main">
 		<div class="container">
@@ -121,7 +125,7 @@
 						<td><input type="text" name="id" maxlength="45" placeholder="아이디를 입력하세요"></td>
 					</tr>
 					<tr>
-						<td><input type="text" name="password" maxlength="45" placeholder="비밀번호를 입력하세요"></td>
+						<td><input type="password" name="password" maxlength="45" placeholder="비밀번호를 입력하세요"></td>
 					</tr>
 					<tr>
 						<td><input class="login" type="submit" value="로그인"> </td>

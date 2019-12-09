@@ -12,14 +12,15 @@ public class ProductModifyAction implements Action {
 	public void execute(HttpServletRequest request,HttpServletResponse reponse) {
 		boolean result = false;
 		int num = Integer.parseInt(request.getParameter("num"));
-		
 		try {
 			ProductDAO dao =ProductDAO.getInstance();
 			Product product = new Product();
 			product.setI(num);
-			product.setName(request.getParameter("name"));
+			product.setName(request.getParameter("art"));
+			product.setArtist("artist");
 			product.setContent(request.getParameter("content"));
 			result= dao.ProductModify(product);
+			request.setAttribute("num", num);
 			if(result==false) {
 				System.out.println("게시판 수정 실패");
 			}

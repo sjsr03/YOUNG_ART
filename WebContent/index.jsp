@@ -7,7 +7,7 @@
 <title>Index</title>
 </head>
 <body>
-	<jsp:forward page="homeView.jsp"/>
+	<jsp:forward page="homeView.do"/>
 	
 </body>
 </html>

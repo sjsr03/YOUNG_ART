@@ -9,13 +9,14 @@ public class Product {
 	private String img; //이미지
 	private int likey; //좋아요 수
 	private String content; //작품설명
+	private String sell;// 판매여부 T or F
 	
 	public Product() {
-		this(0,"","","","","",0,"");
+		this(0,"","","","","",0,"","F");
 	}
 
 	public Product(int i, String name, String artist, String category, String price, String img,
-			int likey, String content) {
+			int likey, String content, String sell) {
 		super();
 		this.i = i;
 		this.name = name;
@@ -25,6 +26,7 @@ public class Product {
 		this.content = content;
 		this.img = img;
 		this.likey = likey;
+		this.sell = sell;
 	}
 
 	public int getI() {
@@ -90,15 +92,19 @@ public class Product {
 	public void setLikey(int likey) {
 		this.likey = likey;
 	}
+	
+	public String getSell() {
+		return sell;
+	}
+
+	public void setSell(String sell) {
+		this.sell = sell;
+	}
 
 	@Override
 	public String toString() {
 		return "Product [i=" + i + ", name=" + name + ", artist=" + artist + ", category=" + category + ", price="
-				+ price + ", img=" + img + ", likey=" + likey + ", content=" + content + "]";
-	}
-	
-	
-
-	
+				+ price + ", img=" + img + ", likey=" + likey + ", content=" + content + ", sell=" + sell + "]";
+	}	
 
 }

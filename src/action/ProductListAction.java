@@ -28,7 +28,7 @@ public class ProductListAction implements Action{
 		}
 		
 		int listcount = dao.getListCount(); //총 리스트 수를 받아옴
-		productlist = dao.getProductList(page, limit, category); // 리스트를 받아옴.
+		productlist = dao.getProductList(page, limit, category, "F"); // 리스트를 받아옴.
 		
 		//총 페이지수
 		int maxpage = (int)((double)listcount/limit +0.95);//1.2+0.95= 2.15 ->2

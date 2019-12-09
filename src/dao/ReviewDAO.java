@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import dto.Product;
 import dto.Review;
 
 public class ReviewDAO {
@@ -95,9 +96,11 @@ public class ReviewDAO {
 				review.setTitle(rs.getString("title"));
 				review.setId(rs.getString("id"));
 				review.setArt(rs.getString("art"));
+				review.setArtist(rs.getString("artist"));
 				review.setDate(rs.getDate("date"));
 				review.setContent(rs.getString("content"));
 				review.setHit(rs.getInt("hit"));
+				review.setImg(rs.getString("img"));
 				list.add(review);
 			}
 			rs.close();
@@ -127,9 +130,11 @@ public class ReviewDAO {
 				review.setTitle(rs.getString("title"));
 				review.setId(rs.getString("id"));
 				review.setArt(rs.getString("art"));
+				review.setArtist(rs.getString("artist"));
 				review.setContent(rs.getString("content"));
 				review.setHit(rs.getInt("hit"));
 				review.setDate(rs.getDate("date"));
+				review.setImg(rs.getString("img"));
 				
 			}
 			rs.close();
@@ -157,14 +162,16 @@ public class ReviewDAO {
 				num=1;
 			}
 			
-			sql="insert into review (i,title,id,art,content,hit,date) values(?,?,?,?,?,?,sysdate())";
+			sql="insert into review (i,title,id,art, artist, content,hit,date, img) values(?,?,?,?,?,?,?,sysdate(),?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2, review.getTitle());
 			pstmt.setString(3, review.getId());
 			pstmt.setString(4, review.getArt());
-			pstmt.setString(5, review.getContent());
-			pstmt.setInt(6, review.getHit());
+			pstmt.setString(5, review.getArtist());
+			pstmt.setString(6, review.getContent());
+			pstmt.setInt(7, review.getHit());
+			pstmt.setString(8, review.getImg());
 			result = pstmt.executeUpdate();
 			if(result!=0) {
 				return true;
@@ -230,6 +237,46 @@ public class ReviewDAO {
 		}catch(SQLException ex) {
 			System.out.println("setReadCountUpdate에러:"+ex);
 		}
+	}
+	
+	//조회수 별 2개
+	public ArrayList<Review> getProductListByLikey() {
+		
+		connect();
+		String sql ="select * from review order by hit desc limit 2";
+		ArrayList<Review> reviewlist = new ArrayList();
+		
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Review review= new Review();
+				review = new Review();
+				review.setI(rs.getInt("i"));
+				review.setTitle(rs.getString("title"));
+				review.setId(rs.getString("id"));
+				review.setArt(rs.getString("art"));
+				review.setArtist(rs.getString("artist"));
+				review.setContent(rs.getString("content"));
+				review.setHit(rs.getInt("hit"));
+				review.setDate(rs.getDate("date"));
+				review.setImg(rs.getString("img"));
+				reviewlist.add(review);
+			}
+			rs.close();
+			return reviewlist;	
+			
+		}catch(Exception ex) {
+			System.out.println("getProductList에러:" +ex);
+			
+		}finally {
+			disconnect();
+		}
+		return null;
 	}
 	
 }

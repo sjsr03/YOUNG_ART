@@ -21,7 +21,7 @@ public class CartAction implements Action {
 		String category= request.getParameter("category");
 		
 		Product product= new Product(productCD, name, artist,category, price, img,
-				likey, content);
+				likey, content, "F");
 		
 		
 		HttpSession session = request.getSession();

@@ -69,9 +69,52 @@ margin-right:auto;
 				    	
 			      }
 				 
+			 function likeover(){
+				 event.currentTarget.style.border= "2px solid red";
+				 event.currentTarget.style.backgroundColor = "white";
+				 event.currentTarget.style.color = "black";	 	
+				 
+			 }
+			 function likeout(){
+				 event.currentTarget.style.border= "none";
+		    	 event.currentTarget.style.backgroundColor = "red";
+				 event.currentTarget.style.color = "white";		
+				 
+			 }
 
 
 	</script>
+<script>
+var doubleSubmitFlag = false;
+function doubleSubmitCheck(){
+	if(doubleSubmitFlag) {
+		return doubleSubmitFlag;
+	}else{
+		doubleSubmitFlag = true;
+		return false;
+	}
+}
+function likey(){
+	$.ajax({
+		url: "LikeUpdate.do",
+		type:"POST",
+		cache:false,
+		data: $('#likey_form').serialize(),
+		success:
+		function(data){
+			if(doubleSubmitCheck()) return;
+			alert("작품을 추천하였습니다.");
+		$("#likey_result").html(data.likey);
+		},
+		error:
+		function(request, status, error){
+			alert("ajax실패")
+		}
+	});
+}
+</script>
+	
+	
 <div id="header-wrapper">
 
 		<!-- Header -->
@@ -88,16 +131,17 @@ margin-right:auto;
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li><a href="index.jsp">HOME</a></li>
-						<li class="active"><a href="ProductList.do?category=painting">ART</a></li>
-						<li><a href="review_board.jsp">REVIEW</a></li>
+						<li class="active"><a href="index.jsp">HOME</a></li>
+						<li><a href="ProductList.do?category=painting">ART</a></li>
+						<li><a href="BoardList.do">REVIEW</a></li>
 						<li><a href="cart.jsp">CART</a></li>
 						<c:if test="${sessionID == null}">
-							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
+						<li class="active"><a href="sign_in.jsp">LOGIN</a>
+						</li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="#">  ${sessionDisplayName} 님 </a></li>
-							<li class="active"><a href="logoutAction.do">LOGOUT</a>
+						<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a> </li>
+						<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>
 				</nav>
@@ -108,7 +152,11 @@ margin-right:auto;
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+			<div id="banner" style="position: relative;
+		background: #333 url(./images/banner44.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
@@ -131,7 +179,8 @@ margin-right:auto;
 						</tr>
 						<tr style="text-align: center; ">
 							<td width="5"></td>
-							<td><p style="font-size:19px; vertical-align:middle">${product.getArtist()} / ${product.getName()}</p></td>
+							<td style="text-align: center; font-size:25px; width:90%">${product.getName()}</td>
+							<td style="color: red">♥<div id="likey_result">${product.likey}</div></td>
 							<td width="5"></td>
 						</tr>
 					</table>
@@ -140,7 +189,16 @@ margin-right:auto;
 						<tr height="1" bgcolor="#dddddd">
 							<td colspan="4" width="407"></td>
 						</tr>
+						<tr>
+							<td width="0">&nbsp;</td>
+							<td align="center" width="76">작가명</td>
+							<td width="319">${product.getArtist()}</td>
+							<td width="0">&nbsp;</td>
+						</tr>
 						<tr height="10" >
+							<td colspan="4" width="407"></td>
+						</tr>
+						<tr height="1" bgcolor="#dddddd">
 							<td colspan="4" width="407"></td>
 						</tr>
 						<tr>
@@ -160,7 +218,7 @@ margin-right:auto;
 						<tr>
 							<td width="0">&nbsp;</td>
 							<td align="center" width="76">작품설명</td>
-							<td width="319" height="320">${product.getContent()}</td>
+							<td width="500px" height="320px" colspan="2">${product.getContent()}</td>
 							<td width="0">&nbsp;</td>
 						</tr>
 						<tr height="1" bgcolor="#dddddd">
@@ -175,15 +233,15 @@ margin-right:auto;
 			
 					   	<c:choose>
 					   	<c:when test="${sessionDisplayName == product.getArtist()}">
-					   	 <td><input type=button value="목록" onmouseover="mover()" onmouseout="mout()" OnClick="window.location='ProductList.do'" style="width:150px; height:45px; color: white; background-color: #010000;
+					   	 <td><input type=button value="목록" onmouseover="mover()" onmouseout="mout()" OnClick="window.location='ProductList.do?category=painting'" style="width:150px; height:45px; color: white; background-color: #010000;
 					   	  border:none; margin-left:3px"></td>
-						<td width="33%"><input type=button value="수정" onmouseover="mover()" onmouseout="mout()" OnClick="location.href='product_modify.do?num=${product.getI()}'" 
+						<td width="33%"><input type=button value="수정" onmouseover="mover()" onmouseout="mout()" OnClick="location.href='ProductModifyView.do?num=${product.getI()}'" 
 						style="width:150px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px"></td>
-						<td width="33%"><input type=button value="삭제" onmouseover="mover()" onmouseout="mout()" OnClick="location.href='product_delete.do?num=${product.getI()}'" 
+						<td width="33%"><input type=button value="삭제" onmouseover="mover()" onmouseout="mout()" OnClick="location.href='ProductDelete.do?num=${product.getI()}'" 
 						style="width:150px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px"></td>
 					   	</c:when>
-					   	<c:otherwise>
-					   		 <td><input type=button value="목록" onmouseover="mover()" onmouseout="mout()" OnClick="window.location='ProductList.do'" style="width:150px; height:45px; color: white; background-color: #010000;
+					   	<c:when test="${sessionUserType == 'C' }">
+					   		 <td><input type=button value="목록" onmouseover="mover()" onmouseout="mout()" OnClick="window.location='ProductList.do?category=painting'" style="width:150px; height:45px; color: white; background-color: #010000;
 								   	  border:none; margin-left:3px"></td>
 							<form name="cart" method="post" action="cart.do">
 							<input type="hidden" name="num" value="${product.getI()}">
@@ -196,12 +254,24 @@ margin-right:auto;
 							<input type="hidden" name="category" value="${product.getCategory()}">
 							<td width="33%"><input type=submit value="장바구니" onmouseover="mover()" onmouseout="mout()" 
 									style="width:150px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px"></td>		
-							</form>	
-							<td width="33%"><input id="like" type=button value="좋아요" onmouseover="mover()" onmouseout="mout()" OnClick="location.href='product_delete.do?num=${product.getI()}'" 
-									style="width:150px; height:45px; color: white; background-color: red; border:none; margin-left:3px"></td>
-					   	
-					   	</c:otherwise>
+							</form>
+							<form id="likey_form">
+      
+                             <input type="hidden" name="command" value="likey">
+                             <input type="hidden" name="product_num" value="${product.getI()}">
+                             <td><input id="like" type=button value="좋아요" onmouseover="likeover()" onmouseout="likeout()" onClick="return likey()" 
+									style="width:150px; height:45px; color: white; background-color: red; border:none; margin-left:3px"></td>             
+              			 	 </form>	
+						
+					   	</c:when>
+					   	<c:when test="${sessionUserType == 'A' }">
+					   	<td colspan="2"><input type=button value="목록" onmouseover="mover()" onmouseout="mout()" OnClick="window.location='ProductList.do?category=painting'" style="width:150px; height:45px; color: white; background-color: #010000;
+								   	  border:none; margin-left:3px"></td>
+					   	  	
+					   	</c:when>
 					   	</c:choose>
+					   	
+		
 	
 						</tr>
 		</table>

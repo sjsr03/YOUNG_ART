@@ -24,7 +24,7 @@ public class ProductViewAction implements Action {
 				System.out.println("상세보기 실패");
 			}
 			    System.out.println("상세보기 성공");
-	   request.setAttribute("product", product);
+		request.setAttribute("product", product);
 	   
 		}catch(Exception e) {
 			e.printStackTrace();

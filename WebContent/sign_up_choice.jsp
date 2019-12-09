@@ -107,7 +107,11 @@
 	<!-- Header -->
 
 	<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner52.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container">
 				<section>
 					<header>

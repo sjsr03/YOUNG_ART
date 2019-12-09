@@ -121,7 +121,11 @@
 	<!-- Header -->
 
 	<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner52.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container">
 				<section>
 					<header>
@@ -146,10 +150,10 @@
 
 					<tr>
 						<td id="title">비밀번호</td>
-						<td><input type="text" name="password" maxlength="15"></td>
+						<td><input type="password" name="password" maxlength="15"></td>
 					</tr>
 					<tr>
-						<td id="title">닉네임</td>
+						<td id="title">이름</td>
 						<td><input type="text" name="displayName" maxlength="15"></td>
 					</tr>
 

@@ -23,7 +23,26 @@
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/style-desktop.css" />
 </noscript>
-<style></style>
+<style>
+table{
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.page{
+	width: 500px;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 20px
+}
+thead {
+	border-bottom:1px solid black;
+	margin-bottom:10px;
+
+}
+
+
+</style>
 </head>
 <body>
 	<div id="header-wrapper">
@@ -42,16 +61,17 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li><a href="index.jsp">HOME</a></li>
-						<li><a href="product_list.jsp">ART</a></li>
+						<li ><a href="index.jsp">HOME</a></li>
+						<li><a href="ProductList.do?category=painting">ART</a></li>
 						<li class="active"><a href="BoardList.do">REVIEW</a></li>
 						<li><a href="cart.jsp">CART</a></li>
 						<c:if test="${sessionID == null}">
-							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
+						<li class="active"><a href="sign_in.jsp">LOGIN</a>
+						</li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="#"> ${sessionID} 님 </a></li>
-							<li class="active"><a href="logoutAction.do">LOGOUT</a>
+						<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a> </li>
+						<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>
 				</nav>
@@ -61,7 +81,11 @@
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner41.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
@@ -71,8 +95,8 @@
 
 			<div class="container">
 				<!-- 게시판 리스트 -->
-				<div style="width: 1503px; margin: 0 auto;">
-					<table border="1" style="margin: 0 auto;" summary="게시판 목록">
+				<div style="width: 1000px; margin: 0 auto;">
+					<table style="margin: 0 auto;" summary="게시판 목록">
 						<colgroup>
 							<col width="100" />
 							<col width="300" />
@@ -84,7 +108,7 @@
 						<thead>
 							<tr>
 								<th>글 번호</th>
-								<th>작품명</th>
+								<th>작품명/작가명</th>
 								<th>글 제목</th>
 								<th>작성자</th>
 								<th>작성일</th>
@@ -97,16 +121,11 @@
 									<td colspan="6">등록된 글이 없습니다.</td>
 								</tr>
 							</c:if>
-							<p style="text-align: center;">
-								<input type="button" value="글쓰기"
-									onClick="window.location = 'review_write.jsp'"
-									style="width: 50px; height: 30px; color: white; background-color: #002266;" />
-							</p>
-
+		
 							<c:forEach items="${boardlist}" var="review">
 								<tr height="25" align="center">
 									<td align="center">${review.getI()}</td>
-									<td align="center">${review.getArt()}</a></td>
+									<td align="center">${review.getArt()}/${review.getArtist()}</td>
 									<td align="center"><a href="review_view.do?num=${review.getI()}">${review.getTitle()}</a></td>
 									<%--영화제목을 누르면 review_view.jsp로 이동 --%>
 									<td align="center">${review.getId()}</td>
@@ -114,9 +133,10 @@
 									<td align="center">${review.getHit()}</td>
 								</tr>
 							</c:forEach>
-							<tr>
-								<td>			
-									<%
+
+						</tbody>
+					</table>
+					<div class="page"><%
 										int nowpage = ((Integer)request.getAttribute("page")).intValue();
 										int startpage = ((Integer)request.getAttribute("startpage")).intValue();
 										int endpage =  ((Integer)request.getAttribute("endpage")).intValue();
@@ -139,13 +159,7 @@
 										if(nowpage>=maxpage){%>
 										[다음]&nbsp;<%}else{%>
 										<a href="./BoardList.do?page=<%=nowpage+1%>">[다음] &nbsp;</a>
-										<%} %>					
-											
-								</td>	
-								
-							</tr>
-						</tbody>
-					</table>
+										<%} %>	</div>
 					<BR> <BR>
 					<%-- <c:out value="총 게시물 : ${ReviewList.size() }개" /> --%>
 				</div>

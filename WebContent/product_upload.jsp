@@ -58,9 +58,24 @@ p {
 	text-align: center;
 }
 
+tr {
+
+		margin-top: 10px;
+	}
+	
+td{
+	margin:5px;
+}
+
+table{
+
+	margin:0 auto;
+	width: 500px;
+}
 table thead tr th {
 	background-color: #90B2F6;
 	height: 30px;
+	margin: 10px;
 }
 
 .thumb-info {
@@ -114,9 +129,9 @@ table thead tr th {
 
 					<ul>
 						<li><a href="index.jsp">HOME</a></li>
-						<li><a href="ProductList.do">ART</a></li>
+						<li><a href="ProductList.do?category=painting">ART</a></li>
 						<li><a href="review_board.jsp">REVIEW</a></li>
-						<li><a href="cart.jsp">CART</a></li>
+						<li><a href="cart.do">CART</a></li>
 						<c:if test="${sessionID == null}">
 							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
 						</c:if>
@@ -132,23 +147,27 @@ table thead tr th {
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner44.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
 
 		<!-- Main -->
 		<div id="main">
-			<div class="thumb-info">
+	
 				<form action="ProductUpload.do" method="post" enctype="multipart/form-data" name="uploadform" onsubmit="return formCheck();">
 				
 					<table>
 						<tr>
 							<td><br> <br>
-								<table width="100%" cellpadding="0" cellspacing="0" border="0">
+								<table  cellpadding="0" cellspacing="0" border="0">
 									<tr style="text-align: center;">
 										<td width="5"></td>
-										<td><H2>상품 추가</H2></td>
+										<td  style="font-size:25px"><H2>작품 등록</H2></td>
 										<td width="5"></td>
 									</tr>
 								</table>
@@ -213,21 +232,21 @@ table thead tr th {
 									</tr>
 									<tr>
 										<td>&nbsp;</td>
-										<td align="center">작품 설명</td>
+										<td style="vertical-align:middle; text-align :center">작품 설명</td>
 										<td><textarea name="content" cols="50" rows="20"></textarea></td>
 										<td>&nbsp;</td>
 									</tr>
-									<tr height="1" bgcolor="#002266">
-										<td colspan="4"></td>
-									</tr>
+						
 									<tr align="center">
 										<td>&nbsp;</td>
 										<td colspan="2">
 							      		<br>
 							      		<input type=submit value="등록" OnClick="javascript:writeCheck();" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color: #010000;
+		border:none; margin-left:3px">
 							      		<input type=button value="취소" OnClick="javascript:history.back(-1)" 
-							      		style="width:50px; height:30px; color: white; background-color: #002266;">
+							      		style="width:150px; height:45px; color: white; background-color: #010000;
+		border:none; margin-left:3px">
 							      	</td>
 										<td>&nbsp;</td>
 									</tr>
@@ -236,8 +255,6 @@ table thead tr th {
 					</table>
 				</form>
 			</div>
-
-		</div>
 
 	</div>
 

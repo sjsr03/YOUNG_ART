@@ -20,7 +20,7 @@
 	<script src="js/skel-panels.min.js"></script>
 	<script src="js/init.js"></script>
 	<link rel="stylesheet" href="css/skel-noscript.css" />
-	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/style.css?after" />
 	<link rel="stylesheet" href="css/style-desktop.css" />
 
 </head>
@@ -44,7 +44,7 @@
 						<li class="active"><a href="index.jsp">HOME</a></li>
 						<li><a href="ProductList.do?category=painting">ART</a></li>
 						<li><a href="BoardList.do">REVIEW</a></li>
-						<li><a href="cartList.do">CART</a></li>
+						<li><a href="cart.jsp">CART</a></li>
 						<c:if test="${sessionID == null}">
 						<li class="active"><a href="sign_in.jsp">LOGIN</a>
 						</li>
@@ -61,14 +61,17 @@
 		<!-- Header -->
 		
 		<!-- Banner -->
-			<div id="banner">
+			<div id="banner" style= "position: relative;
+		background: #333 url(./images/banner39.jpg) no-repeat center;
+		text-align: center;
+		color: #fff; background-size: cover;  text-shadow: 2px 2px 2px gray;">
 				<div class="container">
 					<section>
 						<header>
 							<h2>Young Art 오픈!</h2>
 							<span class="byline">고퀄리티의 작품을 저렴한 가격으로 만나보세요</span>
 						</header>
-						<a href="#" class="button medium">작품들 보러가기</a>
+						<a href="ProductList.do?category=painting" class="button medium">작품들 보러가기</a>
 					</section>	
 				</div>
 			</div>
@@ -80,37 +83,21 @@
 		<div id="extra">
 			<div class="container">
 				<div class="row">
+				<c:forEach items="${mainList}" var="product">
 					<section class="3u">
 					
 						<header>
-							<h2>Mauris vulputate</h2>
+							<h2>${product.getName()}</h2>
 						</header>
-						<span class="fa fa-magic"></span>
-						<p>Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh. Suspendisse dictum porta lectus.</p>
+						<div><img src="upload/${product.getImg()}" style=" width: auto; height: auto;
+    max-width: 260px;
+    max-height: 200px; box-shadow: 5px 5px 5px #000;"></div>
+						<p> ${product.getContent()}</p>
 					</section>
-					<section class="3u">
-						<header>
-							<h2>Fusce ultrices</h2>
-						</header>
-						<span class="fa fa-wrench"></span>
-						<p>Pellentesque tristique ante ut risus. Integer risus congue. Suspendisse dictum porta lectus.</p>
-					</section>
-					<section class="3u">
-						<header>
-							<h2>Maecenas luctus</h2>
-						</header>
-						<span class="fa fa-chain"></span>
-						<p>Suspendisse dictum porta lectus. Integer nisl risus, sagittis convallis, rutrum congue nibh. </p>
-					</section>
-					<section class="3u">
-						<header>
-							<h2>Donec dictum</h2>
-						</header>
-						<span class="fa fa-briefcase"></span>
-						<p>In posuere eleifend odio quisque semper augue mattis wisi maecenas ligula augue praesent.</p>
-					</section>
+				</c:forEach>
+					
 				</div>
-				<a href="#" class="button medium">더 많은 작품 보러가기</a>
+				<a href="ProductList.do?category=painting" class="button medium">더 많은 작품 보러가기</a>
 			</div>
 		</div>
 
@@ -129,14 +116,13 @@
 				</section>
 
 				<div class="row">
-					<section class="6u right">
-						<a href="#" class="image full"><img src="images/pics05.jpg" alt=""></a>
-						<p>This is <strong>Imagination</strong>, a responsive HTML5 site template freebie by <a href="http://templated.co">TEMPLATED</a>. Released for free under the <a href="http://templated.co/license">Creative Commons Attribution</a> license, so use it for whatever (personal or commercial) &ndash; just give us credit! Check out more of our stuff at <a href="http://templated.co">our site</a> or follow us on <a href="http://twitter.com/templatedco">Twitter</a>.</p>
-					</section>				
+				<c:forEach items="${reviewList}" var="review">
+							
 					<section class="6u left">
-						<a href="#" class="image full"><img src="images/pics06.jpg" alt=""></a>
-						<p>Duis pretium velit ac mauris. Proin eu wisi suscipit nulla suscipit interdum. Pellentesque adipiscing purus ac magna. Pellentesque habitant morbi tristique senectus aenean lectus lorem, imperdiet at, ultrices eget, ornare et, wisi purus ac magna. Pellentesque habitant morbi</p>
+						<a href="review_view.do?num=${review.getI()}" class="image full"><img src="upload/${review.getImg()}" alt=""></a>
+						<p>${review.getContent()}</p>
 					</section>
+				</c:forEach>
 				</div>
 				<div class="divider"></div>
 			</div>
@@ -153,21 +139,14 @@
 					</header>
 				</section>
 				<div class="row">
+				<c:forEach items="${likeyList}" var="product">
 					<section class="4u">
-						<a href="#" class="image full"><img src="images/pics01.jpg" alt=""></a>
-						<p>Quisque dictum. Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh. Suspendisse dictum porta lectus.</p>
-						<p><a href="#" class="button">View Full Details</a></p>
+						<a href="#" class="image full"><img src="upload/${product.getImg()}" alt=""></a>
+						<p style="font-size:17px"> ${product.getName()} / ${product.getArtist()} / ♥ ${product.getLikey()}</p>
+						<p><a href="ProductView.do?num=${product.getI()}" class="button">View Full Details</a></p>
 					</section>
-					<section class="4u">
-						<a href="#" class="image full"><img src="images/pics03.jpg" alt=""></a>
-						<p>Pellentesque tristique ante ut risus. Integer nisl risus, sagittis convallis, rutrum id, elementum congue, nibh. Suspendisse dictum porta lectus.</p>
-						<p><a href="#" class="button">View Full Details</a></p>
-					</section>
-					<section class="4u">
-						<a href="#" class="image full"><img src="images/pics04.jpg" alt=""></a>
-						<p>Pellentesque tristique ante ut risus. Quisque dictum. Integer nisl rutrum id, elementum congue, nibh. Suspendisse dictum porta lectus.</p>
-						<p><a href="#" class="button">View Full Details</a></p>
-					</section>
+				</c:forEach>
+
 				</div>
 			</div>
 		</div>

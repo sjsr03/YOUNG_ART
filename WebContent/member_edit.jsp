@@ -76,18 +76,18 @@
 
 				<!-- Nav -->
 				<nav id="nav">
-
 					<ul>
-						<li><a href="index.jsp">HOME</a></li>
-						<li><a href="product_list.jsp">ART</a></li>
-						<li><a href="review_board.jsp">REVIEW</a></li>
+						<li class="active"><a href="index.jsp">HOME</a></li>
+						<li><a href="ProductList.do?category=painting">ART</a></li>
+						<li><a href="BoardList.do">REVIEW</a></li>
 						<li><a href="cart.jsp">CART</a></li>
 						<c:if test="${sessionID == null}">
-							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
+						<li class="active"><a href="sign_in.jsp">LOGIN</a>
+						</li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a></li>
-							<li class="active"><a href="logoutAction.do">LOGOUT</a>
+						<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a> </li>
+						<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>
 				</nav>
@@ -97,7 +97,11 @@
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner52.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
@@ -120,7 +124,7 @@
 						<td><input type="text" name="password" maxlength="45"></td>
 					</tr>
 					<tr>
-						<td id="title">닉네임</td>
+						<td id="title">이름</td>
 						<td><input type="text" name="displayName" maxlength="10" value="${sessionDisplayName}"></td>
 					</tr>
 
@@ -133,6 +137,10 @@
 						<td id="title">학과</td>
 						<td><input type="text" name="major" maxlength="45"value="${sessionMajor}"></td>
 		
+					</tr>
+					<tr>
+						<td></td>
+						<td><input class="login" type="button" value="작품업로드" onClick=" window.location ='product_upload.jsp'"></td>
 					</tr>
 					<tr>
 						<td></td>
@@ -155,7 +163,7 @@
 					</tr>
 					<tr>
 						<td id="title">비밀번호</td>
-						<td><input type="text" name="password" maxlength="45"></td>
+						<td><input type="password" name="password" maxlength="45"></td>
 					</tr>
 					<tr>
 						<td id="title">닉네임</td>
@@ -176,6 +184,11 @@
 					<tr>
 						<td id="title">휴대전화 번호</td>
 						<td><input type="text" name="phoneNumber" maxlength="13" value="${sessionPhoneNumber}"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input class="login" type="button" value="주문목록" onClick="location.href='orderedListByCustomer.do?customerID=${sessionID}'
+						"></td>
 					</tr>
 					<tr>
 						<td></td>

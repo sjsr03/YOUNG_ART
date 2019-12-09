@@ -7,29 +7,42 @@ public class Review {
 	private String title; 
 	private String id;
 	private String art;
+	private String artist;
 	private Date date;
 	private String content;
 	private int hit;
 	
+	private String img;
 	
 	public Review() {
-		this(0,"","","",null,"",0);
+		this(0,"","","","",null,"",0,"");
 	}
 	
-	public Review(int i, String title, String id, String art, Date date, String content, int hit) {
+	public Review(int i, String title, String id, String art, String artist, Date date, String content, int hit,
+			String img) {
 		super();
 		this.i = i;
 		this.title = title;
 		this.id = id;
 		this.art = art;
+		this.artist= artist;
 		this.date = date;
 		this.content = content;
 		this.hit = hit;
+		this.img = img;
 	}
 
 
+	
 
 
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
 
 	public int getI() {
 		return i;
@@ -131,17 +144,18 @@ public class Review {
 		return hit;
 	}
 
-
-
-
-
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
+	
+	
+	public String getArtist() {
+		return artist;
+	}
 
-
-
-
+	public void setArtist(String artist) {
+		this.artist = artist;
+	}
 
 	@Override
 	public String toString() {

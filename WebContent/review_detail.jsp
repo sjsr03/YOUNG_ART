@@ -19,6 +19,24 @@
 	<link rel="stylesheet" href="css/skel-noscript.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/style-desktop.css" />
+	
+	<style>
+	.imgposition {
+float:left;
+margin-right:20px;
+margin-top:20px;
+clear:both;
+width:500px;
+margin-left:150px;
+margin-right:auto;
+}
+table {
+margin-left:auto;
+margin-right:auto;
+}
+	
+	
+	</style>
 <title>Review Detail</title>
 </head>
 <body>
@@ -48,16 +66,17 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li><a href="index.jsp">HOME</a></li>
-						<li><a href="product_list.jsp">ART</a></li>
-						<li class="active"><a href="BoardList.do">REVIEW</a></li>
+						<li class="active"><a href="index.jsp">HOME</a></li>
+						<li><a href="ProductList.do?category=painting">ART</a></li>
+						<li><a href="BoardList.do">REVIEW</a></li>
 						<li><a href="cart.jsp">CART</a></li>
 						<c:if test="${sessionID == null}">
-							<li class="active"><a href="sign_in.jsp">LOGIN</a></li>
+						<li class="active"><a href="sign_in.jsp">LOGIN</a>
+						</li>
 						</c:if>
 						<c:if test="${sessionID != null }">
-							<li><a href="#"> ${sessionID} 님 </a></li>
-							<li class="active"><a href="logoutAction.do">LOGOUT</a>
+						<li><a href="member_edit.jsp"> ${sessionDisplayName} 님 </a> </li>
+						<li class="active"><a href="logoutAction.do">LOGOUT</a>
 						</c:if>
 					</ul>
 				</nav>
@@ -67,16 +86,23 @@
 		<!-- Header -->
 
 		<!-- Banner -->
-		<div id="banner">
+		<div id="banner" style="position: relative;
+		background: #333 url(./images/banner41.jpg) no-repeat center;
+		text-align: center;
+		background-size:cover;
+		color: #fff;">
 			<div class="container"></div>
 		</div>
 		<!-- /Banner -->
 		<!-- Main -->
 		<div id="main">
+		<div class="imgposition">
+		<img src="upload/${review.getImg()}" style="width: inherit; height: inherit">
+		</div>
+		<div class="review_detail">
 		<table>
 			<tr>
-				<td><br>
-				<br>
+				<td>
 					<table width="100%" cellpadding="0" cellspacing="0" border="0">
 						<tr style="text-align: center;">
 							<td width="5"></td>
@@ -118,6 +144,15 @@
 						</tr>
 						<tr>
 							<td width="0">&nbsp;</td>
+							<td align="center" width="76">작가명</td>
+							<td width="319">${review.getArtist()}</td>
+							<td width="0">&nbsp;</td>
+						</tr>
+						<tr height="1" bgcolor="#dddddd">
+							<td colspan="4" width="407"></td>
+						</tr>
+						<tr>
+							<td width="0">&nbsp;</td>
 							<td align="center" width="76">글 제목</td>
 							<td width="319">${review.getTitle()}</td>
 							<td width="0">&nbsp;</td>
@@ -149,32 +184,31 @@
 							<td width="319" height="319">${review.getContent()}</td>
 							<td width="0">&nbsp;</td>
 						</tr>
-						<tr height="1" bgcolor="#002266">
-							<td colspan="4" width="407"></td>
-						</tr>
+					
 						<tr align="center">
 					   			<td width="0">&nbsp;</td>
 					   			<td colspan="2" width="399">
 					   	<c:choose>
-					   	<c:when test="${sessionID == review.getId()}">
-					   	 <input type=button value="목록" OnClick="window.location='BoardList.do'" style="width:50px; height:30px; color: white; background-color: #002266;">
+					   	<c:when test="${sessionDisplayName == review.getId()}">
+					   	 <input type=button value="목록" OnClick="window.location='BoardList.do'" style="width:100px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 									<input type=button value="수정" OnClick="location.href='review_modify_View.do?num=${review.getI()}'" 
-									style="width:50px; height:30px; color: white; background-color: #002266;">
+									style="width:100px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 									<input type=button value="삭제" OnClick="location.href='review_delete.do?num=${review.getI()}'" 
-									style="width:50px; height:30px; color: white; background-color: #002266;">
+									style="width:100px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 					   	</c:when>
 					   	<c:otherwise>
 					   		<input type=button value="목록" OnClick="window.location='BoardList.do'" 
-									style="width:50px; height:30px; color: white; background-color: #002266;">
+									style="width:100px; height:45px; color: white; background-color: #010000; border:none; margin-left:3px">
 					   	
 					   	</c:otherwise>
 					   	</c:choose>
 	
 						</tr>
 		</table>
-		
-		
 		</div>
+		
+		
+		</div> <!-- end main -->
 
 </body>
 </html>

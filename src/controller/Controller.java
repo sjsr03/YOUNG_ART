@@ -10,11 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import action.BoardListAction;
 import action.CartAction;
+import action.HomeViewAction;
 import action.LogoutAction;
 import action.MemberAuthenticationAction;
 import action.MemberDeleteAction;
 import action.MemberEditAction;
 import action.MemberSignAction;
+import action.OrderAction;
+import action.OrderFormViewAction;
+import action.OrderListByCustomerAction;
 import action.ProductListAction;
 import action.ProductUploadAction;
 import action.ProductViewAction;
@@ -22,6 +26,7 @@ import action.ProductDeleteAction;
 import action.ProductModifyAction;
 import action.ProductModifyViewAction;
 import action.ReviewDeleteAction;
+import action.ReviewFormViewAction;
 import action.ReviewInsertAction;
 import action.ReviewModifyAction;
 import action.ReviewModifyViewAction;
@@ -43,16 +48,7 @@ public class Controller extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		Action action = null;
-//		}else if(command.equals("/userReviewViewAction.do")) {
-//			action = new UserReviewAction();
-//			action.execute(request, response); //夸没贸府
-//			RequestDispatcher rd = request.getRequestDispatcher("userReview.jsp");
-//			rd.forward(request, response);
-//		}else if(command.equals("/review_view.do")) {
-//			action = new ReviewViewAction();
-//			action.execute(request, response); //夸没贸府
-//			RequestDispatcher rd = request.getRequestDispatcher("review_view.jsp");
-//			rd.forward(request, response);
+
 		if(command.equals("/member_authenticationAction.do")) {
 			action = new MemberAuthenticationAction();
 			action.execute(request, response); //夸没贸府
@@ -129,12 +125,12 @@ public class Controller extends HttpServlet {
 	    }else if(command.equals("/ProductDelete.do")){
 		    action = new ProductDeleteAction();
 		    action.execute(request, response); //夸没贸府
-		    RequestDispatcher rd = request.getRequestDispatcher("ProductList.do");
+		    RequestDispatcher rd = request.getRequestDispatcher("ProductList.do?category=painting");
 		    rd.forward(request, response);
 	    }else if(command.equals("/ProductModify.do")) {
 			action = new ProductModifyAction();
 			action.execute(request, response); //夸没贸府
-			RequestDispatcher rd = request.getRequestDispatcher("product_view.do");
+			RequestDispatcher rd = request.getRequestDispatcher("ProductView.do");
 			rd.forward(request, response);
 	    }else if(command.equals("/ProductModifyView.do")) {
 			action = new ProductModifyViewAction();
@@ -147,7 +143,42 @@ public class Controller extends HttpServlet {
 			action.execute(request, response); //夸没贸府	
 			RequestDispatcher rd = request.getRequestDispatcher("ProductView.do");
 			rd.forward(request, response);
+	    }else if(command.equals("/orderForm.do")) {
+			action = new OrderFormViewAction();
+			action.execute(request, response); //夸没贸府	
+			RequestDispatcher rd = request.getRequestDispatcher("orderForm.jsp");
+			rd.forward(request, response);
 	    }
+	    else if(command.equals("/order.do")) {
+			action = new OrderAction();
+			action.execute(request, response); //夸没贸府	
+			RequestDispatcher rd = request.getRequestDispatcher("orderedListByCustomer.do");
+			rd.forward(request, response);
+	    }
+	    else if(command.equals("/orderedListByCustomer.do")) {
+			action = new OrderListByCustomerAction();
+			action.execute(request, response); //夸没贸府	
+			RequestDispatcher rd = request.getRequestDispatcher("orderListForm.jsp");
+			rd.forward(request, response);
+	    }else if(command.equals("/review_write.do")) {
+			action = new ReviewFormViewAction();
+			action.execute(request, response); //夸没贸府	
+			RequestDispatcher rd = request.getRequestDispatcher("review_write.jsp");
+			rd.forward(request, response);
+	    }else if(command.equals("/homeView.do")) {
+			action = new HomeViewAction();
+			action.execute(request, response); //夸没贸府	
+			RequestDispatcher rd = request.getRequestDispatcher("homeView.jsp");
+			rd.forward(request, response);
+	    }
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }
 	 
